@@ -1,16 +1,39 @@
-# PicPay People — Frontend
+# Fintech HR — Frontend
 
-Frontend em React + TypeScript + Axios integrado ao backend Spring Boot do projeto.
+Small React + TypeScript frontend for managing employee/candidate records at a
+fintech company's HR team. It talks to a Spring Boot backend over a REST API
+built with Axios, and covers the day-to-day recruitment flow: an overview
+dashboard, a searchable/filterable candidate list, a form to register new
+candidates, and a details view per candidate.
 
-## Backend suportado nesta versão
+## Features
 
-Contrato conferido com o `backend.zip` atual:
+- **Dashboard** — quick stats and a filtered snapshot of candidates.
+- **Candidates** — full list with search (name, role, email), status and role
+  filters, and pagination.
+- **New candidate** — form to register a candidate, with client-side
+  validation.
+- **Candidate details** — single-record view by id.
+
+## Tech stack
+
+- React 19 + TypeScript
+- Vite
+- React Router
+- Axios
+
+## Backend contract
+
+The frontend expects a Spring Boot backend exposing:
 
 - `GET /employees`
 - `GET /employees/{id}`
 - `POST /employees`
+- `PUT /employees/{id}`
+- `PATCH /employees/{id}`
+- `DELETE /employees/{id}`
 
-Modelo JSON:
+Employee JSON shape:
 
 ```json
 {
@@ -26,33 +49,32 @@ Modelo JSON:
 }
 ```
 
-Status aceitos: `IN_ANALYSIS`, `APPROVED`, `REJECTED`, `HIRED`.
+Accepted `status` values: `IN_ANALYSIS`, `APPROVED`, `REJECTED`, `HIRED`.
 
-> PUT, PATCH e DELETE ainda não estão expostos pelo backend recebido. Por isso, esta versão do frontend não dispara essas operações.
+## Running locally
 
-## Rodar localmente
-
-1. Suba o backend Spring Boot na porta 8080.
-2. Instale as dependências:
+1. Start the Spring Boot backend on port 8080.
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-3. Rode o frontend:
+3. Run the frontend:
 
 ```bash
 npm run dev
 ```
 
-No desenvolvimento, o Vite usa proxy `/api` -> `http://localhost:8080`, evitando problema de CORS local.
+In development, Vite proxies `/api` to `http://localhost:8080`, avoiding
+local CORS issues.
 
-## Produção
+## Production
 
-Na Vercel ou outro host, configure:
+On Vercel or any other host, set:
 
 ```env
-VITE_API_URL=https://URL-PUBLICA-DO-BACKEND
+VITE_API_URL=https://YOUR-BACKEND-PUBLIC-URL
 ```
 
-O backend publicado também precisará permitir CORS para o domínio do frontend.
+The deployed backend also needs to allow CORS for the frontend's domain.
