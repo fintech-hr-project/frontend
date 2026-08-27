@@ -104,10 +104,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .candidate-identity-text small { color: var(--subtle); font-size: 9px; }
 .status-badge { display: inline-flex; align-items: center; gap: 6px; min-height: 25px; padding: 0 10px; border-radius: 999px; font-size: 10px; font-weight: 750; }
 .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.status-em_analise { background: var(--amber-soft); color: var(--amber); }
-.status-aprovado { background: var(--blue-soft); color: var(--blue); }
-.status-reprovado { background: var(--danger-soft); color: var(--danger); }
-.status-contratado { background: var(--primary-soft); color: var(--primary-dark); }
+.status-in_analysis { background: var(--amber-soft); color: var(--amber); }
+.status-approved { background: var(--blue-soft); color: var(--blue); }
+.status-rejected { background: var(--danger-soft); color: var(--danger); }
+.status-hired { background: var(--primary-soft); color: var(--primary-dark); }
 .row-menu-wrapper { position: relative; display: inline-block; }
 .row-menu { position: absolute; right: 0; top: 42px; z-index: 20; width: 170px; padding: 6px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); box-shadow: 0 16px 40px rgba(23,32,27,.14); }
 .row-menu button { display: flex; align-items: center; gap: 9px; width: 100%; min-height: 36px; padding: 0 10px; border: 0; border-radius: 7px; background: transparent; color: var(--text); text-align: left; font-size: 11px; }

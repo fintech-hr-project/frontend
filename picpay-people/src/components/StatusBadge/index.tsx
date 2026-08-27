@@ -1,14 +1,14 @@
-import type { StatusFuncionario } from '../../types/funcionario';
+import type { EmployeeStatus } from '../../types/employee';
 
 interface StatusBadgeProps {
-  status: StatusFuncionario;
+  status: EmployeeStatus;
 }
 
-const labels: Record<StatusFuncionario, string> = {
-  EM_ANALISE: 'Em análise',
-  APROVADO: 'Aprovado',
-  REPROVADO: 'Reprovado',
-  CONTRATADO: 'Contratado',
+const labels: Record<EmployeeStatus, string> = {
+  IN_ANALYSIS: 'Em análise',
+  APPROVED: 'Aprovado',
+  REJECTED: 'Reprovado',
+  HIRED: 'Contratado',
 };
 
 function StatusBadge({ status }: StatusBadgeProps) {

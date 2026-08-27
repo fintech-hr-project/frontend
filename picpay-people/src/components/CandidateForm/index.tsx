@@ -1,17 +1,17 @@
 import type { ChangeEvent, FormEvent } from 'react';
 import type {
-  FuncionarioFormErros,
-  NovoFuncionario,
-  StatusFuncionario,
-} from '../../types/funcionario';
+  EmployeeFormErrors,
+  EmployeeStatus,
+  NewEmployee,
+} from '../../types/employee';
 import FormField from '../FormField';
 
 interface CandidateFormProps {
-  value: NovoFuncionario;
-  errors: FuncionarioFormErros;
+  value: NewEmployee;
+  errors: EmployeeFormErrors;
   submitLabel: string;
   isSubmitting: boolean;
-  onChange: (value: NovoFuncionario) => void;
+  onChange: (value: NewEmployee) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onCancel: () => void;
 }
@@ -27,8 +27,8 @@ function CandidateForm({
 }: CandidateFormProps) {
   function updateTextField(
     field: keyof Pick<
-      NovoFuncionario,
-      'nome' | 'email' | 'telefone' | 'cargo' | 'departamento' | 'cidade'
+      NewEmployee,
+      'name' | 'email' | 'phone' | 'role' | 'department' | 'city'
     >,
   ) {
     return (event: ChangeEvent<HTMLInputElement>) => {
@@ -38,21 +38,21 @@ function CandidateForm({
 
   return (
     <form className="candidate-form" onSubmit={onSubmit} noValidate>
-      <section className="form-section" aria-labelledby="dados-pessoais-title">
+      <section className="form-section" aria-labelledby="personal-data-title">
         <div className="section-heading">
-          <h2 id="dados-pessoais-title">Dados pessoais</h2>
+          <h2 id="personal-data-title">Dados pessoais</h2>
           <p>Informações de contato do candidato.</p>
         </div>
 
         <div className="form-grid">
           <FormField
-            id="nome"
+            id="name"
             label="Nome completo"
-            value={value.nome}
-            onChange={updateTextField('nome')}
+            value={value.name}
+            onChange={updateTextField('name')}
             required
             maxLength={100}
-            error={errors.nome}
+            error={errors.name}
             placeholder="Ex.: Ana Souza"
           />
           <FormField
@@ -67,21 +67,21 @@ function CandidateForm({
             placeholder="nome@email.com"
           />
           <FormField
-            id="telefone"
+            id="phone"
             label="Telefone"
-            value={value.telefone}
-            onChange={updateTextField('telefone')}
+            value={value.phone}
+            onChange={updateTextField('phone')}
             maxLength={20}
-            error={errors.telefone}
+            error={errors.phone}
             placeholder="(11) 99999-9999"
           />
           <FormField
-            id="cidade"
+            id="city"
             label="Cidade"
-            value={value.cidade}
-            onChange={updateTextField('cidade')}
+            value={value.city}
+            onChange={updateTextField('city')}
             maxLength={80}
-            error={errors.cidade}
+            error={errors.city}
             placeholder="Ex.: São Paulo"
           />
         </div>
@@ -89,46 +89,46 @@ function CandidateForm({
 
       <div className="form-divider" />
 
-      <section className="form-section" aria-labelledby="vaga-title">
+      <section className="form-section" aria-labelledby="job-data-title">
         <div className="section-heading">
-          <h2 id="vaga-title">Vaga e contratação</h2>
+          <h2 id="job-data-title">Vaga e contratação</h2>
           <p>Dados usados para acompanhar a candidatura.</p>
         </div>
 
         <div className="form-grid">
           <FormField
-            id="cargo"
+            id="role"
             label="Cargo"
-            value={value.cargo}
-            onChange={updateTextField('cargo')}
+            value={value.role}
+            onChange={updateTextField('role')}
             required
             maxLength={100}
-            error={errors.cargo}
+            error={errors.role}
             placeholder="Ex.: Desenvolvedor(a)"
           />
           <FormField
-            id="departamento"
+            id="department"
             label="Departamento"
-            value={value.departamento}
-            onChange={updateTextField('departamento')}
+            value={value.department}
+            onChange={updateTextField('department')}
             maxLength={100}
-            error={errors.departamento}
+            error={errors.department}
             placeholder="Ex.: Tecnologia"
           />
           <FormField
-            id="salario"
+            id="salary"
             label="Salário"
             type="number"
             min={0}
             step={0.01}
-            value={value.salario}
+            value={value.salary}
             onChange={(event) =>
               onChange({
                 ...value,
-                salario: Number(event.target.value),
+                salary: Number(event.target.value),
               })
             }
-            error={errors.salario}
+            error={errors.salary}
           />
 
           <div className="form-field">
@@ -139,14 +139,14 @@ function CandidateForm({
               onChange={(event) =>
                 onChange({
                   ...value,
-                  status: event.target.value as StatusFuncionario,
+                  status: event.target.value as EmployeeStatus,
                 })
               }
             >
-              <option value="EM_ANALISE">Em análise</option>
-              <option value="APROVADO">Aprovado</option>
-              <option value="REPROVADO">Reprovado</option>
-              <option value="CONTRATADO">Contratado</option>
+              <option value="IN_ANALYSIS">Em análise</option>
+              <option value="APPROVED">Aprovado</option>
+              <option value="REJECTED">Reprovado</option>
+              <option value="HIRED">Contratado</option>
             </select>
           </div>
         </div>
@@ -161,11 +161,7 @@ function CandidateForm({
         >
           Cancelar
         </button>
-        <button
-          type="submit"
-          className="button button-primary"
-          disabled={isSubmitting}
-        >
+        <button type="submit" className="button button-primary" disabled={isSubmitting}>
           {isSubmitting ? 'Salvando...' : submitLabel}
         </button>
       </div>

@@ -26,7 +26,7 @@ function Sidebar() {
         </NavLink>
 
         <NavLink
-          to="/candidatos"
+          to="/candidates"
           className={({ isActive }) =>
             `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
           }
@@ -36,7 +36,7 @@ function Sidebar() {
         </NavLink>
 
         <NavLink
-          to="/candidatos/novo"
+          to="/candidates/new"
           className={({ isActive }) =>
             `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
           }
@@ -48,9 +48,7 @@ function Sidebar() {
 
       <div className="sidebar-footer">
         <div className="sidebar-user" aria-label="Equipe de RH, Recrutamento">
-          <div className="sidebar-user-avatar" aria-hidden="true">
-            RH
-          </div>
+          <div className="sidebar-user-avatar" aria-hidden="true">RH</div>
           <div className="sidebar-user-info">
             <strong>Equipe de RH</strong>
             <span>Recrutamento</span>

@@ -5,41 +5,42 @@ import { useNavigate } from 'react-router-dom';
 import CandidateForm from '../../components/CandidateForm';
 import FeedbackMessage from '../../components/FeedbackMessage';
 import PageHeader from '../../components/PageHeader';
-import { criarFuncionario } from '../../services/funcionariosService';
-import type { FuncionarioFormErros, NovoFuncionario } from '../../types/funcionario';
-import { normalizarFuncionario, possuiErros, validarFuncionario } from '../../utils/validarFuncionario';
+import { createEmployee } from '../../services/employeeService';
+import type { EmployeeFormErrors, NewEmployee } from '../../types/employee';
+import { hasErrors, normalizeEmployee, validateEmployee } from '../../utils/validateEmployee';
 
-const initialForm: NovoFuncionario = {
-  nome: '',
+const INITIAL_FORM: NewEmployee = {
+  name: '',
   email: '',
-  telefone: '',
-  cargo: '',
-  departamento: '',
-  salario: 0,
-  cidade: '',
-  status: 'EM_ANALISE',
+  phone: '',
+  role: '',
+  department: '',
+  salary: 0,
+  city: '',
+  status: 'IN_ANALYSIS',
 };
 
 function NewCandidate() {
   const navigate = useNavigate();
-  const [form, setForm] = useState<NovoFuncionario>(initialForm);
-  const [errors, setErrors] = useState<FuncionarioFormErros>({});
+  const [form, setForm] = useState<NewEmployee>(INITIAL_FORM);
+  const [errors, setErrors] = useState<EmployeeFormErrors>({});
   const [errorMessage, setErrorMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const normalized = normalizarFuncionario(form);
-    const validationErrors = validarFuncionario(normalized);
+
+    const normalized = normalizeEmployee(form);
+    const validationErrors = validateEmployee(normalized);
     setErrors(validationErrors);
 
-    if (possuiErros(validationErrors)) return;
+    if (hasErrors(validationErrors)) return;
 
     try {
       setSubmitting(true);
       setErrorMessage('');
-      const created = await criarFuncionario(normalized);
-      navigate(`/candidatos/${created.id}`, {
+      const created = await createEmployee(normalized);
+      navigate(`/candidates/${created.id}`, {
         state: { success: 'Candidato cadastrado com sucesso.' },
       });
     } catch (err) {
@@ -51,9 +52,8 @@ function NewCandidate() {
 
   return (
     <div className="page-container narrow-page">
-      <button type="button" className="back-link" onClick={() => navigate('/candidatos')}>
-        <ArrowLeft size={17} aria-hidden="true" />
-        Voltar para candidatos
+      <button type="button" className="back-link" onClick={() => navigate('/candidates')}>
+        <ArrowLeft size={17} aria-hidden="true" /> Voltar para candidatos
       </button>
 
       <PageHeader title="Novo candidato" subtitle="Cadastre uma pessoa no processo seletivo." />
@@ -68,7 +68,7 @@ function NewCandidate() {
           isSubmitting={submitting}
           onChange={setForm}
           onSubmit={handleSubmit}
-          onCancel={() => navigate('/candidatos')}
+          onCancel={() => navigate('/candidates')}
         />
       </section>
     </div>

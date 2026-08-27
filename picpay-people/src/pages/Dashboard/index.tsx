@@ -2,39 +2,32 @@ import { BriefcaseBusiness, Check, Clock3, Plus, Users, X } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CandidateTable from '../../components/CandidateTable';
-import ConfirmDialog from '../../components/ConfirmDialog';
 import FeedbackMessage from '../../components/FeedbackMessage';
 import LoadingState from '../../components/LoadingState';
 import PageHeader from '../../components/PageHeader';
 import Pagination from '../../components/Pagination';
 import SearchFilters from '../../components/SearchFilters';
-import {
-  excluirFuncionario,
-  listarFuncionarios,
-} from '../../services/funcionariosService';
-import type { Funcionario } from '../../types/funcionario';
+import { listEmployees } from '../../services/employeeService';
+import type { Employee } from '../../types/employee';
 
 const ITEMS_PER_PAGE = 5;
 
 function Dashboard() {
   const navigate = useNavigate();
-  const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
+  const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
-  const [cargoFilter, setCargoFilter] = useState('');
+  const [roleFilter, setRoleFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [deleteTarget, setDeleteTarget] = useState<Funcionario | null>(null);
-  const [deleting, setDeleting] = useState(false);
 
-  const loadFuncionarios = useCallback(async () => {
+  const loadEmployees = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
-      const data = await listarFuncionarios();
-      setFuncionarios(data);
+      const data = await listEmployees();
+      setEmployees(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro inesperado.');
     } finally {
@@ -43,70 +36,51 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    void loadFuncionarios();
-  }, [loadFuncionarios]);
+    void loadEmployees();
+  }, [loadEmployees]);
 
-  const cargos = useMemo(
-    () => [...new Set(funcionarios.map((item) => item.cargo))].sort(),
-    [funcionarios],
+  const roles = useMemo(
+    () => [...new Set(employees.map((item) => item.role))].sort(),
+    [employees],
   );
 
-  const filtered = useMemo(() => {
+  const filteredEmployees = useMemo(() => {
     const term = search.trim().toLowerCase();
 
-    return funcionarios.filter((item) => {
+    return employees.filter((item) => {
       const matchesSearch =
         !term ||
-        item.nome.toLowerCase().includes(term) ||
-        item.cargo.toLowerCase().includes(term) ||
+        item.name.toLowerCase().includes(term) ||
+        item.role.toLowerCase().includes(term) ||
         item.email.toLowerCase().includes(term);
 
       const matchesStatus = !statusFilter || item.status === statusFilter;
-      const matchesCargo = !cargoFilter || item.cargo === cargoFilter;
+      const matchesRole = !roleFilter || item.role === roleFilter;
 
-      return matchesSearch && matchesStatus && matchesCargo;
+      return matchesSearch && matchesStatus && matchesRole;
     });
-  }, [funcionarios, search, statusFilter, cargoFilter]);
+  }, [employees, search, statusFilter, roleFilter]);
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [search, statusFilter, cargoFilter]);
+  }, [search, statusFilter, roleFilter]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
-  const pageItems = filtered.slice(
+  const totalPages = Math.max(1, Math.ceil(filteredEmployees.length / ITEMS_PER_PAGE));
+  const pageItems = filteredEmployees.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE,
   );
 
   const metrics = useMemo(
     () => ({
-      total: funcionarios.length,
-      analise: funcionarios.filter((item) => item.status === 'EM_ANALISE').length,
-      aprovados: funcionarios.filter((item) => item.status === 'APROVADO').length,
-      reprovados: funcionarios.filter((item) => item.status === 'REPROVADO').length,
-      contratados: funcionarios.filter((item) => item.status === 'CONTRATADO').length,
+      total: employees.length,
+      inAnalysis: employees.filter((item) => item.status === 'IN_ANALYSIS').length,
+      approved: employees.filter((item) => item.status === 'APPROVED').length,
+      rejected: employees.filter((item) => item.status === 'REJECTED').length,
+      hired: employees.filter((item) => item.status === 'HIRED').length,
     }),
-    [funcionarios],
+    [employees],
   );
-
-  async function handleDelete() {
-    if (!deleteTarget) return;
-
-    try {
-      setDeleting(true);
-      setError('');
-      await excluirFuncionario(deleteTarget.id);
-      setFuncionarios((current) =>
-        current.filter((item) => item.id !== deleteTarget.id),
-      );
-      setSuccess(`${deleteTarget.nome} foi excluído com sucesso.`);
-      setDeleteTarget(null);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erro inesperado.');
-    } finally {
-      setDeleting(false);
-    }
-  }
 
   return (
     <div className="page-container">
@@ -117,7 +91,7 @@ function Dashboard() {
           <button
             type="button"
             className="button button-primary"
-            onClick={() => navigate('/candidatos/novo')}
+            onClick={() => navigate('/candidates/new')}
           >
             <Plus size={17} aria-hidden="true" />
             Novo candidato
@@ -132,24 +106,23 @@ function Dashboard() {
         </article>
         <article className="metric-card">
           <span className="metric-icon metric-amber"><Clock3 size={20} /></span>
-          <div><strong>{metrics.analise}</strong><span>Em análise</span></div>
+          <div><strong>{metrics.inAnalysis}</strong><span>Em análise</span></div>
         </article>
         <article className="metric-card">
           <span className="metric-icon metric-blue"><Check size={20} /></span>
-          <div><strong>{metrics.aprovados}</strong><span>Aprovados</span></div>
+          <div><strong>{metrics.approved}</strong><span>Aprovados</span></div>
         </article>
         <article className="metric-card">
           <span className="metric-icon metric-red"><X size={20} /></span>
-          <div><strong>{metrics.reprovados}</strong><span>Reprovados</span></div>
+          <div><strong>{metrics.rejected}</strong><span>Reprovados</span></div>
         </article>
         <article className="metric-card">
           <span className="metric-icon metric-green"><BriefcaseBusiness size={20} /></span>
-          <div><strong>{metrics.contratados}</strong><span>Contratados</span></div>
+          <div><strong>{metrics.hired}</strong><span>Contratados</span></div>
         </article>
       </section>
 
       {error && <FeedbackMessage type="error">{error}</FeedbackMessage>}
-      {success && <FeedbackMessage type="success">{success}</FeedbackMessage>}
 
       <section className="content-card" aria-labelledby="candidate-list-title">
         <h2 id="candidate-list-title" className="sr-only">Lista de candidatos</h2>
@@ -157,24 +130,22 @@ function Dashboard() {
         <SearchFilters
           search={search}
           status={statusFilter}
-          cargo={cargoFilter}
-          cargos={cargos}
+          role={roleFilter}
+          roles={roles}
           onSearchChange={setSearch}
           onStatusChange={setStatusFilter}
-          onCargoChange={setCargoFilter}
+          onRoleChange={setRoleFilter}
         />
 
         <div className="list-meta">
-          <strong>{filtered.length} candidatos</strong>
-          <span>•</span>
-          <span>Atualizado agora</span>
+          <strong>{filteredEmployees.length} candidatos</strong>
         </div>
 
         {loading ? (
           <LoadingState label="Carregando candidatos..." />
         ) : (
           <>
-            <CandidateTable funcionarios={pageItems} onDelete={setDeleteTarget} />
+            <CandidateTable employees={pageItems} />
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
@@ -184,16 +155,6 @@ function Dashboard() {
           </>
         )}
       </section>
-
-      <ConfirmDialog
-        isOpen={Boolean(deleteTarget)}
-        title={`Excluir ${deleteTarget?.nome ?? 'candidato'}?`}
-        description="Esta ação removerá permanentemente o candidato e não poderá ser desfeita."
-        confirmLabel="Excluir candidato"
-        isLoading={deleting}
-        onCancel={() => setDeleteTarget(null)}
-        onConfirm={() => void handleDelete()}
-      />
     </div>
   );
 }

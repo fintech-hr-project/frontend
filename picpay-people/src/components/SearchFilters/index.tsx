@@ -1,24 +1,24 @@
 import { Search } from 'lucide-react';
-import type { StatusFuncionario } from '../../types/funcionario';
+import type { EmployeeStatus } from '../../types/employee';
 
 interface SearchFiltersProps {
   search: string;
   status: string;
-  cargo: string;
-  cargos: string[];
+  role: string;
+  roles: string[];
   onSearchChange: (value: string) => void;
   onStatusChange: (value: string) => void;
-  onCargoChange: (value: string) => void;
+  onRoleChange: (value: string) => void;
 }
 
 function SearchFilters({
   search,
   status,
-  cargo,
-  cargos,
+  role,
+  roles,
   onSearchChange,
   onStatusChange,
-  onCargoChange,
+  onRoleChange,
 }: SearchFiltersProps) {
   return (
     <div className="search-filters">
@@ -35,26 +35,20 @@ function SearchFilters({
 
       <label className="select-box">
         <span className="sr-only">Filtrar por status</span>
-        <select
-          value={status}
-          onChange={(event) => onStatusChange(event.target.value)}
-        >
+        <select value={status} onChange={(event) => onStatusChange(event.target.value)}>
           <option value="">Todos os status</option>
-          <option value={'EM_ANALISE' satisfies StatusFuncionario}>Em análise</option>
-          <option value={'APROVADO' satisfies StatusFuncionario}>Aprovados</option>
-          <option value={'REPROVADO' satisfies StatusFuncionario}>Reprovados</option>
-          <option value={'CONTRATADO' satisfies StatusFuncionario}>Contratados</option>
+          <option value={'IN_ANALYSIS' satisfies EmployeeStatus}>Em análise</option>
+          <option value={'APPROVED' satisfies EmployeeStatus}>Aprovados</option>
+          <option value={'REJECTED' satisfies EmployeeStatus}>Reprovados</option>
+          <option value={'HIRED' satisfies EmployeeStatus}>Contratados</option>
         </select>
       </label>
 
       <label className="select-box">
         <span className="sr-only">Filtrar por cargo</span>
-        <select
-          value={cargo}
-          onChange={(event) => onCargoChange(event.target.value)}
-        >
+        <select value={role} onChange={(event) => onRoleChange(event.target.value)}>
           <option value="">Todos os cargos</option>
-          {cargos.map((item) => (
+          {roles.map((item) => (
             <option key={item} value={item}>
               {item}
             </option>
