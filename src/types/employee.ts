@@ -17,6 +17,7 @@ export interface Employee {
 }
 
 export type NewEmployee = Omit<Employee, 'id'>;
+export type UpdateEmployee = Partial<NewEmployee>;
 
 export interface EmployeeFormErrors {
   name?: string;

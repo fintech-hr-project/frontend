@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { api } from './api';
-import type { Employee, NewEmployee } from '../types/employee';
+import type { Employee, NewEmployee, UpdateEmployee } from '../types/employee';
 
 interface ApiErrorResponse {
   timestamp?: string;
@@ -56,5 +56,37 @@ export async function createEmployee(employee: NewEmployee): Promise<Employee> {
     return response.data;
   } catch (error) {
     throw handleApiError(error, 'Não foi possível cadastrar o candidato.');
+  }
+}
+
+export async function updateEmployee(
+  id: number,
+  employee: NewEmployee,
+): Promise<Employee> {
+  try {
+    const response = await api.put<Employee>(`/employees/${id}`, employee);
+    return response.data;
+  } catch (error) {
+    throw handleApiError(error, 'Não foi possível salvar as alterações.');
+  }
+}
+
+export async function patchEmployee(
+  id: number,
+  data: UpdateEmployee,
+): Promise<Employee> {
+  try {
+    const response = await api.patch<Employee>(`/employees/${id}`, data);
+    return response.data;
+  } catch (error) {
+    throw handleApiError(error, 'Não foi possível atualizar o candidato.');
+  }
+}
+
+export async function deleteEmployee(id: number): Promise<void> {
+  try {
+    await api.delete(`/employees/${id}`);
+  } catch (error) {
+    throw handleApiError(error, 'Não foi possível excluir o candidato.');
   }
 }
