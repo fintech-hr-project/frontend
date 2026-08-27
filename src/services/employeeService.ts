@@ -24,8 +24,8 @@ function handleApiError(error: unknown, defaultMessage: string): Error {
 
     if (!error.response) {
       return new Error(
-        'Could not connect to the backend. Check if the Spring Boot server is running.',
-      );
+        'Error! Bad Connection...',
+      )
     }
   }
 
