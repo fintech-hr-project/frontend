@@ -2,7 +2,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CandidateForm from '../../components/CandidateForm';
+import EmployeeForm from '../../components/EmployeeForm';
 import FeedbackMessage from '../../components/FeedbackMessage';
 import PageHeader from '../../components/PageHeader';
 import { createEmployee } from '../../services/employeeService';
@@ -20,7 +20,7 @@ const INITIAL_FORM: NewEmployee = {
   status: 'IN_ANALYSIS',
 };
 
-function NewCandidate() {
+function CreateEmployee() {
   const navigate = useNavigate();
   const [form, setForm] = useState<NewEmployee>(INITIAL_FORM);
   const [errors, setErrors] = useState<EmployeeFormErrors>({});
@@ -40,11 +40,11 @@ function NewCandidate() {
       setSubmitting(true);
       setErrorMessage('');
       const created = await createEmployee(normalized);
-      navigate(`/candidates/${created.id}`, {
-        state: { success: 'Candidato cadastrado com sucesso.' },
+      navigate(`/employees/${created.id}`, {
+        state: { success: 'Employee created successfully.' },
       });
     } catch (err) {
-      setErrorMessage(err instanceof Error ? err.message : 'Erro inesperado.');
+      setErrorMessage(err instanceof Error ? err.message : 'Unexpected error.');
     } finally {
       setSubmitting(false);
     }
@@ -52,27 +52,27 @@ function NewCandidate() {
 
   return (
     <div className="page-container narrow-page">
-      <button type="button" className="back-link" onClick={() => navigate('/candidates')}>
-        <ArrowLeft size={17} aria-hidden="true" /> Voltar para candidatos
+      <button type="button" className="back-link" onClick={() => navigate('/employees')}>
+        <ArrowLeft size={17} aria-hidden="true" /> Back to employees
       </button>
 
-      <PageHeader title="Novo candidato" subtitle="Cadastre uma pessoa no processo seletivo." />
+      <PageHeader title="New employee" subtitle="Register a new employee record." />
 
       {errorMessage && <FeedbackMessage type="error">{errorMessage}</FeedbackMessage>}
 
       <section className="content-card form-card">
-        <CandidateForm
+        <EmployeeForm
           value={form}
           errors={errors}
-          submitLabel="Salvar candidato"
+          submitLabel="Save employee"
           isSubmitting={submitting}
           onChange={setForm}
           onSubmit={handleSubmit}
-          onCancel={() => navigate('/candidates')}
+          onCancel={() => navigate('/employees')}
         />
       </section>
     </div>
   );
 }
 
-export default NewCandidate;
+export default CreateEmployee;

@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
-import CandidateDetails from '../pages/CandidateDetails';
-import Candidates from '../pages/Candidates';
+import CreateEmployee from '../pages/CreateEmployee';
 import Dashboard from '../pages/Dashboard';
-import NewCandidate from '../pages/NewCandidate';
+import EditEmployee from '../pages/EditEmployee';
+import EmployeeDetails from '../pages/EmployeeDetails';
+import Employees from '../pages/Employees';
 import NotFound from '../pages/NotFound';
 
 export const router = createBrowserRouter([
@@ -11,9 +12,10 @@ export const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       { path: '/', element: <Dashboard /> },
-      { path: '/candidates', element: <Candidates /> },
-      { path: '/candidates/new', element: <NewCandidate /> },
-      { path: '/candidates/:id', element: <CandidateDetails /> },
+      { path: '/employees', element: <Employees /> },
+      { path: '/employees/new', element: <CreateEmployee /> },
+      { path: '/employees/:id', element: <EmployeeDetails /> },
+      { path: '/employees/:id/edit', element: <EditEmployee /> },
     ],
   },
   { path: '*', element: <NotFound /> },

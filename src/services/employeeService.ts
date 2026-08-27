@@ -24,7 +24,7 @@ function handleApiError(error: unknown, defaultMessage: string): Error {
 
     if (!error.response) {
       return new Error(
-        'Não foi possível conectar ao backend. Verifique se o Spring Boot está rodando.',
+        'Could not connect to the backend. Check if the Spring Boot server is running.',
       );
     }
   }
@@ -37,7 +37,7 @@ export async function listEmployees(): Promise<Employee[]> {
     const response = await api.get<Employee[]>('/employees');
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'Não foi possível carregar os candidatos.');
+    throw handleApiError(error, 'Could not load employees.');
   }
 }
 
@@ -46,7 +46,7 @@ export async function getEmployeeById(id: number): Promise<Employee> {
     const response = await api.get<Employee>(`/employees/${id}`);
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'Não foi possível encontrar o candidato.');
+    throw handleApiError(error, 'Could not find the employee.');
   }
 }
 
@@ -55,7 +55,7 @@ export async function createEmployee(employee: NewEmployee): Promise<Employee> {
     const response = await api.post<Employee>('/employees', employee);
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'Não foi possível cadastrar o candidato.');
+    throw handleApiError(error, 'Could not create the employee.');
   }
 }
 
@@ -67,7 +67,7 @@ export async function updateEmployee(
     const response = await api.put<Employee>(`/employees/${id}`, employee);
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'Não foi possível salvar as alterações.');
+    throw handleApiError(error, 'Could not save the changes.');
   }
 }
 
@@ -79,7 +79,7 @@ export async function patchEmployee(
     const response = await api.patch<Employee>(`/employees/${id}`, data);
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'Não foi possível atualizar o candidato.');
+    throw handleApiError(error, 'Could not update the employee.');
   }
 }
 
@@ -87,6 +87,6 @@ export async function deleteEmployee(id: number): Promise<void> {
   try {
     await api.delete(`/employees/${id}`);
   } catch (error) {
-    throw handleApiError(error, 'Não foi possível excluir o candidato.');
+    throw handleApiError(error, 'Could not delete the employee.');
   }
 }

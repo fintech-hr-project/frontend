@@ -18,27 +18,27 @@ export function validateEmployee(employee: NewEmployee): EmployeeFormErrors {
   const errors: EmployeeFormErrors = {};
 
   if (!employee.name.trim()) {
-    errors.name = 'Informe o nome completo.';
+    errors.name = 'Enter the full name.';
   } else if (employee.name.trim().length > 100) {
-    errors.name = 'O nome deve ter no máximo 100 caracteres.';
+    errors.name = 'Name must be at most 100 characters.';
   }
 
   if (!employee.email.trim()) {
-    errors.email = 'Informe o e-mail.';
+    errors.email = 'Enter an email address.';
   } else if (!EMAIL_REGEX.test(employee.email.trim())) {
-    errors.email = 'Informe um e-mail válido.';
+    errors.email = 'Enter a valid email address.';
   }
 
   if (!employee.role.trim()) {
-    errors.role = 'Informe o cargo.';
+    errors.role = 'Enter the role.';
   }
 
   if (employee.phone.length > 20) {
-    errors.phone = 'O telefone deve ter no máximo 20 caracteres.';
+    errors.phone = 'Phone must be at most 20 characters.';
   }
 
   if (employee.salary < 0) {
-    errors.salary = 'O salário não pode ser negativo.';
+    errors.salary = 'Salary cannot be negative.';
   }
 
   return errors;

@@ -12,9 +12,9 @@ function Pagination({
   onNext,
 }: PaginationProps) {
   return (
-    <nav className="pagination" aria-label="Paginação de candidatos">
+    <nav className="pagination" aria-label="Employee pagination">
       <span>
-        Página {currentPage} de {totalPages}
+        Page {currentPage} of {totalPages}
       </span>
 
       <div className="pagination-actions">
@@ -24,7 +24,7 @@ function Pagination({
           onClick={onPrevious}
           disabled={currentPage === 1}
         >
-          Anterior
+          Previous
         </button>
 
         <button
@@ -33,7 +33,7 @@ function Pagination({
           onClick={onNext}
           disabled={currentPage === totalPages}
         >
-          Próxima
+          Next
         </button>
       </div>
     </nav>

@@ -5,7 +5,7 @@ function AppLayout() {
   return (
     <div className="app-layout">
       <a className="skip-link" href="#main-content">
-        Pular para o conteúdo principal
+        Skip to main content
       </a>
 
       <Sidebar />

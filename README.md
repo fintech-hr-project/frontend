@@ -1,19 +1,19 @@
 # Fintech HR — Frontend
 
-Small React + TypeScript frontend for managing employee/candidate records at a
-fintech company's HR team. It talks to a Spring Boot backend over a REST API
-built with Axios, and covers the day-to-day recruitment flow: an overview
-dashboard, a searchable/filterable candidate list, a form to register new
-candidates, and a details view per candidate.
+Small React + TypeScript frontend for managing employee records at a fintech
+company's HR team. It talks to a Spring Boot backend over a REST API built
+with Axios, and covers full CRUD on employees: an overview dashboard, a
+searchable/filterable employee list, and create/view/edit/delete flows.
 
 ## Features
 
-- **Dashboard** — quick stats and a filtered snapshot of candidates.
-- **Candidates** — full list with search (name, role, email), status and role
+- **Dashboard** — quick stats and a read-only snapshot of the workforce.
+- **Employees** — full list with search (name, role, email), status and role
   filters, and pagination.
-- **New candidate** — form to register a candidate, with client-side
-  validation.
-- **Candidate details** — single-record view by id.
+- **Create** — form to register a new employee, with client-side validation.
+- **View** — single-record details view by id.
+- **Edit** — update an existing employee's information.
+- **Delete** — remove an employee, with a confirmation dialog.
 
 ## Tech stack
 

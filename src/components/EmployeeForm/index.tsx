@@ -6,7 +6,7 @@ import type {
 } from '../../types/employee';
 import FormField from '../FormField';
 
-interface CandidateFormProps {
+interface EmployeeFormProps {
   value: NewEmployee;
   errors: EmployeeFormErrors;
   submitLabel: string;
@@ -16,7 +16,7 @@ interface CandidateFormProps {
   onCancel: () => void;
 }
 
-function CandidateForm({
+function EmployeeForm({
   value,
   errors,
   submitLabel,
@@ -24,7 +24,7 @@ function CandidateForm({
   onChange,
   onSubmit,
   onCancel,
-}: CandidateFormProps) {
+}: EmployeeFormProps) {
   function updateTextField(
     field: keyof Pick<
       NewEmployee,
@@ -37,38 +37,38 @@ function CandidateForm({
   }
 
   return (
-    <form className="candidate-form" onSubmit={onSubmit} noValidate>
+    <form className="employee-form" onSubmit={onSubmit} noValidate>
       <section className="form-section" aria-labelledby="personal-data-title">
         <div className="section-heading">
-          <h2 id="personal-data-title">Dados pessoais</h2>
-          <p>Informações de contato do candidato.</p>
+          <h2 id="personal-data-title">Personal details</h2>
+          <p>Contact information for the employee.</p>
         </div>
 
         <div className="form-grid">
           <FormField
             id="name"
-            label="Nome completo"
+            label="Full name"
             value={value.name}
             onChange={updateTextField('name')}
             required
             maxLength={100}
             error={errors.name}
-            placeholder="Ex.: Ana Souza"
+            placeholder="e.g. Ana Souza"
           />
           <FormField
             id="email"
-            label="E-mail"
+            label="Email"
             type="email"
             value={value.email}
             onChange={updateTextField('email')}
             required
             maxLength={120}
             error={errors.email}
-            placeholder="nome@email.com"
+            placeholder="name@email.com"
           />
           <FormField
             id="phone"
-            label="Telefone"
+            label="Phone"
             value={value.phone}
             onChange={updateTextField('phone')}
             maxLength={20}
@@ -77,12 +77,12 @@ function CandidateForm({
           />
           <FormField
             id="city"
-            label="Cidade"
+            label="City"
             value={value.city}
             onChange={updateTextField('city')}
             maxLength={80}
             error={errors.city}
-            placeholder="Ex.: São Paulo"
+            placeholder="e.g. San Francisco"
           />
         </div>
       </section>
@@ -91,33 +91,33 @@ function CandidateForm({
 
       <section className="form-section" aria-labelledby="job-data-title">
         <div className="section-heading">
-          <h2 id="job-data-title">Vaga e contratação</h2>
-          <p>Dados usados para acompanhar a candidatura.</p>
+          <h2 id="job-data-title">Job details</h2>
+          <p>Information about the employee's role.</p>
         </div>
 
         <div className="form-grid">
           <FormField
             id="role"
-            label="Cargo"
+            label="Role"
             value={value.role}
             onChange={updateTextField('role')}
             required
             maxLength={100}
             error={errors.role}
-            placeholder="Ex.: Desenvolvedor(a)"
+            placeholder="e.g. Software Engineer"
           />
           <FormField
             id="department"
-            label="Departamento"
+            label="Department"
             value={value.department}
             onChange={updateTextField('department')}
             maxLength={100}
             error={errors.department}
-            placeholder="Ex.: Tecnologia"
+            placeholder="e.g. Technology"
           />
           <FormField
             id="salary"
-            label="Salário"
+            label="Salary"
             type="number"
             min={0}
             step={0.01}
@@ -143,10 +143,10 @@ function CandidateForm({
                 })
               }
             >
-              <option value="IN_ANALYSIS">Em análise</option>
-              <option value="APPROVED">Aprovado</option>
-              <option value="REJECTED">Reprovado</option>
-              <option value="HIRED">Contratado</option>
+              <option value="IN_ANALYSIS">In analysis</option>
+              <option value="APPROVED">Approved</option>
+              <option value="REJECTED">Rejected</option>
+              <option value="HIRED">Hired</option>
             </select>
           </div>
         </div>
@@ -159,14 +159,14 @@ function CandidateForm({
           onClick={onCancel}
           disabled={isSubmitting}
         >
-          Cancelar
+          Cancel
         </button>
         <button type="submit" className="button button-primary" disabled={isSubmitting}>
-          {isSubmitting ? 'Salvando...' : submitLabel}
+          {isSubmitting ? 'Saving...' : submitLabel}
         </button>
       </div>
     </form>
   );
 }
 
-export default CandidateForm;
+export default EmployeeForm;

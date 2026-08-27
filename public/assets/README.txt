@@ -1,2 +1,2 @@
-Coloque aqui a logo oficial do PicPay, se desejar.
-A interface atual usa somente o texto "PicPay People" para evitar uma logo falsa ou quebrada.
+Place any static brand assets (e.g. a logo) here if you want to add one.
+The current UI uses a plain text wordmark only, to avoid shipping a placeholder or broken logo.

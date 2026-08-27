@@ -5,10 +5,10 @@ interface StatusBadgeProps {
 }
 
 const labels: Record<EmployeeStatus, string> = {
-  IN_ANALYSIS: 'Em análise',
-  APPROVED: 'Aprovado',
-  REJECTED: 'Reprovado',
-  HIRED: 'Contratado',
+  IN_ANALYSIS: 'In analysis',
+  APPROVED: 'Approved',
+  REJECTED: 'Rejected',
+  HIRED: 'Hired',
 };
 
 function StatusBadge({ status }: StatusBadgeProps) {

@@ -1,17 +1,23 @@
 import { ChevronRight, House, UserPlus, Users } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 function Sidebar() {
+  const { pathname } = useLocation();
+  // Active for the list itself and any employee record (e.g. /employees/12/edit),
+  // but not for /employees/new, which has its own nav item below.
+  const isEmployeesActive =
+    pathname.startsWith('/employees') && pathname !== '/employees/new';
+
   return (
     <aside className="sidebar">
-      <div className="sidebar-brand" aria-label="PicPay People">
+      <div className="sidebar-brand" aria-label="Fintech HR">
         <div className="sidebar-brand-text">
-          <strong>PicPay</strong>
-          <span>People</span>
+          <strong>Fintech</strong>
+          <span>HR</span>
         </div>
       </div>
 
-      <nav className="sidebar-nav" aria-label="Navegação principal">
+      <nav className="sidebar-nav" aria-label="Main navigation">
         <span className="sidebar-section-title">MENU</span>
 
         <NavLink
@@ -22,36 +28,35 @@ function Sidebar() {
           }
         >
           <House size={19} aria-hidden="true" />
-          <span>Visão geral</span>
+          <span>Overview</span>
         </NavLink>
 
-        <NavLink
-          to="/candidates"
-          className={({ isActive }) =>
-            `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
-          }
+        <Link
+          to="/employees"
+          className={`sidebar-link ${isEmployeesActive ? 'sidebar-link-active' : ''}`}
+          aria-current={isEmployeesActive ? 'page' : undefined}
         >
           <Users size={19} aria-hidden="true" />
-          <span>Candidatos</span>
-        </NavLink>
+          <span>Employees</span>
+        </Link>
 
         <NavLink
-          to="/candidates/new"
+          to="/employees/new"
           className={({ isActive }) =>
             `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
           }
         >
           <UserPlus size={19} aria-hidden="true" />
-          <span>Novo candidato</span>
+          <span>New employee</span>
         </NavLink>
       </nav>
 
       <div className="sidebar-footer">
-        <div className="sidebar-user" aria-label="Equipe de RH, Recrutamento">
-          <div className="sidebar-user-avatar" aria-hidden="true">RH</div>
+        <div className="sidebar-user" aria-label="HR team, People Operations">
+          <div className="sidebar-user-avatar" aria-hidden="true">HR</div>
           <div className="sidebar-user-info">
-            <strong>Equipe de RH</strong>
-            <span>Recrutamento</span>
+            <strong>HR Team</strong>
+            <span>People Operations</span>
           </div>
           <ChevronRight size={18} aria-hidden="true" />
         </div>

@@ -65,7 +65,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .button-secondary { border-color: var(--border); background: var(--surface); color: var(--text); }
 .button-secondary:hover { background: var(--surface-soft); }
 .button-danger { background: var(--danger); color: white; }
-.button-danger-subtle { border-color: #f2c7c3; background: #fff; color: var(--danger); }
+.button-danger:hover { filter: brightness(1.05); }
 .icon-button { display: inline-grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); color: var(--muted); }
 .icon-button:hover { background: var(--surface-soft); color: var(--text); }
 .back-link { display: inline-flex; align-items: center; gap: 7px; margin: 0 0 18px; padding: 6px 8px 6px 0; border: 0; background: transparent; color: var(--primary-dark); font-size: 13px; font-weight: 750; }
@@ -88,20 +88,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .list-meta { display: flex; gap: 8px; align-items: center; margin: 0 0 10px; color: var(--subtle); font-size: 11px; }
 .list-meta strong { color: var(--muted); }
 .table-wrapper { overflow-x: auto; border: 1px solid var(--border); border-radius: 11px; }
-.candidate-table { width: 100%; min-width: 900px; border-collapse: collapse; }
-.candidate-table th, .candidate-table td { padding: 12px 14px; border-bottom: 1px solid #edf1ee; text-align: left; vertical-align: middle; }
-.candidate-table thead th { background: var(--surface-soft); color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .02em; }
-.candidate-table tbody tr:last-child td { border-bottom: 0; }
-.candidate-table tbody tr:hover { background: #fbfcfb; }
-.candidate-table td { color: #37423c; font-size: 11px; }
+.employee-table { width: 100%; min-width: 900px; border-collapse: collapse; }
+.employee-table th, .employee-table td { padding: 12px 14px; border-bottom: 1px solid #edf1ee; text-align: left; vertical-align: middle; }
+.employee-table thead th { background: var(--surface-soft); color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .02em; }
+.employee-table tbody tr:last-child td { border-bottom: 0; }
+.employee-table tbody tr:hover { background: #fbfcfb; }
+.employee-table td { color: #37423c; font-size: 11px; }
 .actions-column, .actions-cell { width: 60px; text-align: right !important; }
-.candidate-identity-button { display: inline-flex; align-items: center; gap: 10px; padding: 0; border: 0; background: transparent; text-align: left; }
-.candidate-identity-button:hover strong { color: var(--primary-dark); text-decoration: underline; text-underline-offset: 2px; }
-.candidate-avatar { display: grid; place-items: center; width: 32px; height: 32px; flex: 0 0 32px; border-radius: 50%; background: var(--primary-soft); color: var(--primary-dark); font-size: 9px; font-weight: 800; }
-.candidate-avatar-large { width: 54px; height: 54px; flex-basis: 54px; font-size: 14px; }
-.candidate-identity-text { display: flex; flex-direction: column; gap: 2px; }
-.candidate-identity-text strong { color: var(--text); font-size: 12px; }
-.candidate-identity-text small { color: var(--subtle); font-size: 9px; }
+.employee-cell-button { display: inline-flex; align-items: center; gap: 10px; padding: 0; border: 0; background: transparent; text-align: left; }
+.employee-cell-button:hover strong { color: var(--primary-dark); text-decoration: underline; text-underline-offset: 2px; }
+.employee-avatar { display: grid; place-items: center; width: 32px; height: 32px; flex: 0 0 32px; border-radius: 50%; background: var(--primary-soft); color: var(--primary-dark); font-size: 9px; font-weight: 800; }
+.employee-avatar-large { width: 54px; height: 54px; flex-basis: 54px; font-size: 14px; }
+.employee-cell-text { display: flex; flex-direction: column; gap: 2px; }
+.employee-cell-text strong { color: var(--text); font-size: 12px; }
+.employee-cell-text small { color: var(--subtle); font-size: 9px; }
 .status-badge { display: inline-flex; align-items: center; gap: 6px; min-height: 25px; padding: 0 10px; border-radius: 999px; font-size: 10px; font-weight: 750; }
 .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .status-in_analysis { background: var(--amber-soft); color: var(--amber); }
@@ -125,7 +125,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .feedback-error { border: 1px solid #f0c2bd; background: var(--danger-soft); color: #8f1e16; }
 .feedback-success { border: 1px solid #bde7cf; background: var(--primary-soft); color: var(--primary-dark); }
 .form-card { padding: 24px; }
-.candidate-form { display: flex; flex-direction: column; gap: 24px; }
+.employee-form { display: flex; flex-direction: column; gap: 24px; }
 .form-section { display: flex; flex-direction: column; gap: 16px; }
 .section-heading h2 { margin: 0; font-size: 16px; }
 .section-heading p { margin: 5px 0 0; color: var(--muted); font-size: 11px; }
@@ -137,11 +137,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .field-error { color: var(--danger); font-size: 10px; }
 .form-divider { height: 1px; background: var(--border); }
 .form-actions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 4px; }
-.candidate-detail-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 20px; }
-.candidate-detail-identity { display: flex; align-items: center; gap: 14px; }
-.candidate-name-row { display: flex; align-items: center; gap: 10px; }
-.candidate-name-row h1 { margin: 0; font-size: 29px; letter-spacing: -.03em; }
-.candidate-detail-identity p { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+.employee-detail-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 20px; }
+.employee-detail-identity { display: flex; align-items: center; gap: 14px; }
+.employee-name-row { display: flex; align-items: center; gap: 10px; }
+.employee-name-row h1 { margin: 0; font-size: 29px; letter-spacing: -.03em; }
+.employee-detail-identity p { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
 .detail-actions { display: flex; gap: 8px; }
 .details-card h2 { margin: 0 0 18px; font-size: 16px; }
 .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 50px; padding: 18px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -181,7 +181,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .form-grid, .details-grid { grid-template-columns: 1fr; }
   .search-filters { grid-template-columns: 1fr; }
   .search-box { grid-column: auto; }
-  .candidate-detail-header, .page-header { align-items: flex-start; flex-direction: column; }
+  .employee-detail-header, .page-header { align-items: flex-start; flex-direction: column; }
 }
 @media (max-width: 560px) {
   .sidebar { display: none; }

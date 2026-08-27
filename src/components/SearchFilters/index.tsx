@@ -23,31 +23,31 @@ function SearchFilters({
   return (
     <div className="search-filters">
       <label className="search-box">
-        <span className="sr-only">Buscar candidatos</span>
+        <span className="sr-only">Search employees</span>
         <Search size={18} aria-hidden="true" />
         <input
           type="search"
           value={search}
           onChange={(event) => onSearchChange(event.target.value)}
-          placeholder="Buscar por nome, cargo ou e-mail"
+          placeholder="Search by name, role, or email"
         />
       </label>
 
       <label className="select-box">
-        <span className="sr-only">Filtrar por status</span>
+        <span className="sr-only">Filter by status</span>
         <select value={status} onChange={(event) => onStatusChange(event.target.value)}>
-          <option value="">Todos os status</option>
-          <option value={'IN_ANALYSIS' satisfies EmployeeStatus}>Em análise</option>
-          <option value={'APPROVED' satisfies EmployeeStatus}>Aprovados</option>
-          <option value={'REJECTED' satisfies EmployeeStatus}>Reprovados</option>
-          <option value={'HIRED' satisfies EmployeeStatus}>Contratados</option>
+          <option value="">All statuses</option>
+          <option value={'IN_ANALYSIS' satisfies EmployeeStatus}>In analysis</option>
+          <option value={'APPROVED' satisfies EmployeeStatus}>Approved</option>
+          <option value={'REJECTED' satisfies EmployeeStatus}>Rejected</option>
+          <option value={'HIRED' satisfies EmployeeStatus}>Hired</option>
         </select>
       </label>
 
       <label className="select-box">
-        <span className="sr-only">Filtrar por cargo</span>
+        <span className="sr-only">Filter by role</span>
         <select value={role} onChange={(event) => onRoleChange(event.target.value)}>
-          <option value="">Todos os cargos</option>
+          <option value="">All roles</option>
           {roles.map((item) => (
             <option key={item} value={item}>
               {item}
